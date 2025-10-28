@@ -56,6 +56,8 @@ let viewport = Viewport::from_bounding_box(&c.bounding_box(), SideLength::Long(5
 // Use the viewport to create an image
 viewport.write_to_file("docs/circle.svg", |cr: &cairo::Context| {c.draw(cr)}).expect("image can be created");
 ```
+File "docs/circle.svg":
+
 ![](https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/circle.svg "Circle created by code")
 
 # Compare images

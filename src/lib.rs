@@ -191,7 +191,7 @@ impl Viewport {
     use cairo_viewport::{Viewport, SideLength};
     use bounding_box::BoundingBox;
 
-    let bb = BoundingBox::new(-2.0, 7.0, -4.0, 4.0);
+    let bb = BoundingBox::new(-1.5, 6.5, -3.5, 3.5);
     let viewport = Viewport::from_bounding_box(&bb, SideLength::Long(500));
 
     let draw_callback = |cr: &cairo::Context| {
@@ -227,6 +227,8 @@ impl Viewport {
     let path = std::path::Path::new("docs/rectangle_with_origin.svg");
     assert!(viewport.write_to_file(path, draw_callback).is_ok());
     ```
+    File "docs/rectangle_with_origin.svg":
+
     ![](https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/rectangle_with_origin.svg "Rectangle with origin marker")
     */
     pub fn write_to_file<F: FnOnce(&cairo::Context) -> Result<(), cairo::Error>, P: AsRef<Path>>(
