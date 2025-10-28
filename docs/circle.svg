@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="0 0 500 500">
+<rect x="-50" y="-50" width="600" height="600" fill="rgb(100%, 100%, 100%)" fill-opacity="1"/>
+<path fill="none" stroke-width="0.2" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(0%, 0%, 100%)" stroke-opacity="1" stroke-miterlimit="10" d="M 1002 1000 C 1002 1001.10457 1001.10457 1002 1000 1002 C 998.89543 1002 998 1001.10457 998 1000 C 998 998.89543 998.89543 998 1000 998 C 1001.10457 998 1002 998.89543 1002 1000 " transform="matrix(100, 0, 0, 100, -99750, -99750)"/>
+</svg>
