@@ -239,7 +239,6 @@ impl Viewport {
 
         // Check if the given path already points to a file. If not, try to create the file.
         let mut file = if path.exists() {
-            // https://users.rust-lang.org/t/os-error-5-when-writing-to-file-on-windows-10/49307/2
             std::fs::OpenOptions::new().write(true).open(path)?
         } else {
             std::fs::File::create(path)?
