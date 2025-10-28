@@ -923,6 +923,7 @@ impl std::fmt::Display for Error {
             }
             #[cfg(feature = "image-compare")]
             Error::CompareError(error) => error.fmt(f),
+            #[cfg(feature = "image-compare")]
             Error::ImageError(error) => error.fmt(f),
         }
     }
