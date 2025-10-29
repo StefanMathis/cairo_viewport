@@ -8,6 +8,10 @@ fn test_compare_image() {
     let viewport = Viewport::from_bounding_box(&bb, SideLength::Long(500));
 
     fn draw_cross(cr: &cairo::Context, color: [f64; 4]) -> Result<(), cairo::Error> {
+        // Set the background to white
+        cr.set_source_rgb(1.0, 1.0, 1.0);
+        cr.paint()?;
+
         cr.move_to(-1.0, 0.0);
         cr.line_to(1.0, 0.0);
         cr.set_line_width(0.2);

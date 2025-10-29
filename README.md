@@ -1,11 +1,11 @@
 cairo_viewport
 ==============
 
-[`Viewport`]: https://docs.rs/cairo_viewport/0.1.1/cairo_viewport/struct.Viewport.html
-[`Viewport::compare_to_image`]: https://docs.rs/cairo_viewport/0.1.1/cairo_viewport/struct.Viewport.html#method.compare_to_image
-[`Viewport::compare_or_create`]: https://docs.rs/cairo_viewport/0.1.1/cairo_viewport/struct.Viewport.html#method.compare_or_create
-[`compare_to_image`]: https://docs.rs/cairo_viewport/0.1.1/cairo_viewport/fn.compare_to_image.html
-[`compare_or_create`]: https://docs.rs/cairo_viewport/0.1.1/cairo_viewport/fn.compare_or_create.html
+[`Viewport`]: https://docs.rs/cairo_viewport/0.1.2/cairo_viewport/struct.Viewport.html
+[`Viewport::compare_to_image`]: https://docs.rs/cairo_viewport/0.1.2/cairo_viewport/struct.Viewport.html#method.compare_to_image
+[`Viewport::compare_or_create`]: https://docs.rs/cairo_viewport/0.1.2/cairo_viewport/struct.Viewport.html#method.compare_or_create
+[`compare_to_image`]: https://docs.rs/cairo_viewport/0.1.2/cairo_viewport/fn.compare_to_image.html
+[`compare_or_create`]: https://docs.rs/cairo_viewport/0.1.2/cairo_viewport/fn.compare_or_create.html
 [`BoundingBox`]: https://docs.rs/bounding_box/latest/bounding_box/struct.BoundingBox.html
 [`Context`]: https://gtk-rs.org/gtk-rs-core/stable/latest/docs/cairo/struct.Context.html
 
@@ -28,6 +28,10 @@ struct Circle {
 impl Circle {
     fn draw(&self, cr: &cairo::Context) -> Result<(), cairo::Error> {
         use std::f64::consts::PI;
+
+        // Set the background to white
+        cr.set_source_rgb(1.0, 1.0, 1.0);
+        cr.paint()?;
 
         cr.move_to(self.center[0] + self.radius, self.center[1]);
         cr.arc(self.center[0], self.center[1], self.radius, 0.0, PI);
@@ -79,6 +83,10 @@ impl Circle {
     fn draw(&self, cr: &cairo::Context) -> Result<(), cairo::Error> {
         use std::f64::consts::PI;
 
+        // Set the background to white
+        cr.set_source_rgb(1.0, 1.0, 1.0);
+        cr.paint()?;
+
         cr.move_to(self.center[0] + self.radius, self.center[1]);
         cr.arc(self.center[0], self.center[1], self.radius, 0.0, PI);
         cr.arc(self.center[0], self.center[1], self.radius, PI, 0.0);
@@ -111,4 +119,4 @@ creates the file if it doesn't.
 # Documentation
 
 The full API documentation is available at
-[https://docs.rs/cairo_viewport/0.1.1/cairo_viewport/](https://docs.rs/cairo_viewport/0.1.1/cairo_viewport/).
+[https://docs.rs/cairo_viewport/0.1.2/cairo_viewport/](https://docs.rs/cairo_viewport/0.1.2/cairo_viewport/).

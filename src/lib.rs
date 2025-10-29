@@ -154,7 +154,7 @@ impl Viewport {
     */
     pub fn from_bounding_box(bounding_box: &BoundingBox, side_length: SideLength) -> Self {
         if !bounding_box.is_finite() {
-            panic!("Bounding box is not finite!")
+            panic!("infinite bounding box!")
         }
 
         let origin = [-bounding_box.xmin(), -bounding_box.ymin()];
@@ -195,6 +195,10 @@ impl Viewport {
     let viewport = Viewport::from_bounding_box(&bb, SideLength::Long(500));
 
     let draw_callback = |cr: &cairo::Context| {
+
+        // Set the background to white
+        cr.set_source_rgb(1.0, 1.0, 1.0);
+        cr.paint()?;
 
         cr.set_line_cap(cairo::LineCap::Square);
 
@@ -277,10 +281,6 @@ impl Viewport {
         cr.scale(self.scale, self.scale);
         cr.translate(self.origin[0], self.origin[1]);
 
-        // Set the background to white
-        cr.set_source_rgb(1.0, 1.0, 1.0);
-        cr.paint()?;
-
         // Call the callback to do the actual drawing
         draw_callback(&cr)?;
 
@@ -309,6 +309,11 @@ impl Viewport {
     let viewport = Viewport::from_bounding_box(&bb, SideLength::Long(500));
 
     fn draw_cross(cr: &cairo::Context, color: [f64; 4]) -> Result<(), cairo::Error> {
+
+        // Set the background to white
+        cr.set_source_rgb(1.0, 1.0, 1.0);
+        cr.paint()?;
+
         cr.move_to(-1.0, 0.0);
         cr.line_to(1.0, 0.0);
         cr.set_line_width(0.2);
@@ -382,6 +387,11 @@ impl Viewport {
     let viewport = Viewport::from_bounding_box(&bb, SideLength::Long(500));
 
     fn draw_cross(cr: &cairo::Context, color: [f64; 4]) -> Result<(), cairo::Error> {
+
+        // Set the background to white
+        cr.set_source_rgb(1.0, 1.0, 1.0);
+        cr.paint()?;
+
         cr.move_to(-1.0, 0.0);
         cr.line_to(1.0, 0.0);
         cr.set_line_width(0.2);
@@ -472,6 +482,11 @@ let bb = BoundingBox::new(-1.0, 1.0, -1.0, 1.0);
 let viewport = Viewport::from_bounding_box(&bb, SideLength::Long(500));
 
 fn draw_cross(cr: &cairo::Context, color: [f64; 4]) -> Result<(), cairo::Error> {
+
+    // Set the background to white
+    cr.set_source_rgb(1.0, 1.0, 1.0);
+    cr.paint()?;
+
     cr.move_to(-1.0, 0.0);
     cr.line_to(1.0, 0.0);
     cr.set_line_width(0.2);
@@ -601,6 +616,11 @@ let bb = BoundingBox::new(-1.0, 1.0, -1.0, 1.0);
 let viewport = Viewport::from_bounding_box(&bb, SideLength::Long(500));
 
 fn draw_cross(cr: &cairo::Context, color: [f64; 4]) -> Result<(), cairo::Error> {
+
+    // Set the background to white
+    cr.set_source_rgb(1.0, 1.0, 1.0);
+    cr.paint()?;
+
     cr.move_to(-1.0, 0.0);
     cr.line_to(1.0, 0.0);
     cr.set_line_width(0.2);
