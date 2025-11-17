@@ -2,11 +2,10 @@
 #![deny(missing_docs)]
 
 use bounding_box::BoundingBox;
-use cairo;
-use std::{
-    ffi::OsStr,
-    path::{Path, PathBuf},
-};
+use std::{ffi::OsStr, path::Path};
+
+// Make cairo importable from this crate
+pub use cairo;
 
 #[cfg(feature = "image-compare")]
 use rand::Rng;
@@ -873,9 +872,9 @@ pub enum Error {
     #[cfg(feature = "image-compare")]
     ImageCompFailed {
         /// Reference image.
-        reference_image: PathBuf,
+        reference_image: std::path::PathBuf,
         /// The image created by the drawing function
-        image_created_from_fn: PathBuf,
+        image_created_from_fn: std::path::PathBuf,
     },
     /// An error occurred when trying to open that image
     #[cfg(feature = "image-compare")]
