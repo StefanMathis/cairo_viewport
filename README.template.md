@@ -107,7 +107,7 @@ impl Circle {
 
 let c = Circle {center: [1000.0, 1000.0], radius: 2.0};
 let viewport = Viewport::from_bounding_box(&c.bounding_box(), SideLength::Long(500));
-viewport.compare_to_image("docs/circle.png", |cr: &cairo::Context| {c.draw(cr)}).expect("images are identical");
+viewport.compare_to_image("docs/circle.png", |cr: &cairo::Context| {c.draw(cr)}, 0.99).expect("images are identical");
 ```
 
 It is also possible to circumvent the usage of [`Viewport`] entirely by directly

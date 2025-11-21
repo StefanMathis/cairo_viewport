@@ -344,13 +344,13 @@ impl Viewport {
     // Compare to a second black cross
     viewport.compare_to_image(path, |cr: &cairo::Context| {
         draw_cross(cr, [0.0, 0.0, 0.0, 1.0])
-    })
+    }, 0.99)
     .expect("images should be identical");
 
     // Draw a blue cross
     let err = viewport.compare_to_image(path, |cr: &cairo::Context| {
         draw_cross(cr, [0.0, 0.0, 1.0, 1.0])
-    })
+    }, 0.99)
     .unwrap_err();
     match err {
         cairo_viewport::Error::ImageCompFailed {
@@ -371,8 +371,13 @@ impl Viewport {
         &self,
         image: P,
         draw_callback: F,
+        required_relative_similarity: f64,
     ) -> Result<(), Error> {
-        return compare_to_image(image, |path: &Path| self.write_to_file(path, draw_callback));
+        return compare_to_image(
+            image,
+            |path: &Path| self.write_to_file(path, draw_callback),
+            required_relative_similarity,
+        );
     }
 
     /**
@@ -417,15 +422,15 @@ impl Viewport {
     assert!(!path.exists());
 
     // Creates the reference image
-    viewport.compare_or_create(path, |cr| draw_cross(cr, [0.0, 0.0, 0.0, 1.0])).expect("image is created");
+    viewport.compare_or_create(path, |cr| draw_cross(cr, [0.0, 0.0, 0.0, 1.0]), 0.99).expect("image is created");
 
     assert!(path.exists());
 
     // Reference image exists -> compare
-    viewport.compare_or_create(path, |cr| draw_cross(cr, [0.0, 0.0, 0.0, 1.0])).expect("comparison succeeded");
+    viewport.compare_or_create(path, |cr| draw_cross(cr, [0.0, 0.0, 0.0, 1.0]), 0.99).expect("comparison succeeded");
 
     // Draw a blue cross
-    let err = viewport.compare_or_create(path, |cr| draw_cross(cr, [0.0, 0.0, 1.0, 1.0])).unwrap_err();
+    let err = viewport.compare_or_create(path, |cr| draw_cross(cr, [0.0, 0.0, 1.0, 1.0]), 0.99).unwrap_err();
     match err {
         cairo_viewport::Error::ImageCompFailed {
             reference_image: _,
@@ -448,8 +453,13 @@ impl Viewport {
         &self,
         image: P,
         draw_callback: F,
+        required_relative_similarity: f64,
     ) -> Result<(), Error> {
-        return compare_or_create(image, |path: &Path| self.write_to_file(path, draw_callback));
+        return compare_or_create(
+            image,
+            |path: &Path| self.write_to_file(path, draw_callback),
+            required_relative_similarity,
+        );
     }
 }
 
@@ -460,6 +470,13 @@ This function is meant to be used for testing image creation functions. If the
 `draw_callback` creates the same image as the one stored in `reference_image`,
 `Ok(())` is returned. In case the images are not equal,
 [`Error::ImageCompFailed`] is returned. Only .png images can be compared.
+
+Images are considered equal if their relative similariness in RGB values is
+equal to or greater than `required_relative_similarity`. Setting this value to
+<= 0 means that any two images of the same size are considered equal, while
+setting it to >= 1 means that each pixel value has to be identical. Since the
+pixel values of created images can slightly vary depending on the platform, it
+is recommended to use a value slightly smaller than 1 for robustness (i.e. 0.99).
 
 Under the hood, this function uses `draw_callback` to temporarily create an
 image in the same directory as `reference_image`. This image is then compared to
@@ -517,13 +534,13 @@ viewport
 // Compare to a second black cross
 compare_to_image(path, |path: &Path| {
     viewport.write_to_file(path, |cr| draw_cross(cr, [0.0, 0.0, 0.0, 1.0]))
-})
+}, 0.99)
 .expect("images should be identical");
 
 // Draw a blue cross
 let err = compare_to_image(path, |path: &Path| {
     viewport.write_to_file(path, |cr| draw_cross(cr, [0.0, 0.0, 1.0, 1.0]))
-})
+}, 0.99)
 .unwrap_err();
 match err {
     cairo_viewport::Error::ImageCompFailed {
@@ -540,11 +557,13 @@ match err {
 pub fn compare_to_image<F: FnOnce(&Path) -> Result<(), Error>, P: AsRef<Path>>(
     reference_image: P,
     draw_callback: F,
+    required_relative_similarity: f64,
 ) -> Result<(), Error> {
     fn compare_to_image_inner<F: FnOnce(&Path) -> Result<(), Error>>(
         p: &std::path::Path,
         tmp_image: &std::path::Path,
         draw_callback: F,
+        required_relative_similarity: f64,
     ) -> Result<(), Error> {
         // Populate the file
         draw_callback(&tmp_image)?;
@@ -561,7 +580,7 @@ pub fn compare_to_image<F: FnOnce(&Path) -> Result<(), Error>, P: AsRef<Path>>(
         )?;
 
         // result.score = 1 means the images are identical
-        if result.score > 0.95 {
+        if result.score >= required_relative_similarity.clamp(0.0, 1.0) {
             return Ok(());
         } else {
             return Err(Error::ImageCompFailed {
@@ -597,7 +616,7 @@ pub fn compare_to_image<F: FnOnce(&Path) -> Result<(), Error>, P: AsRef<Path>>(
     // Create the temporary file.
     let _ = std::fs::File::create(&tmp_image)?;
 
-    let _ = compare_to_image_inner(p, &tmp_image, draw_callback)?;
+    let _ = compare_to_image_inner(p, &tmp_image, draw_callback, required_relative_similarity)?;
     std::fs::remove_file(&tmp_image)?;
     return Ok(());
 }
@@ -648,19 +667,19 @@ assert!(!path.exists());
 // Creates the reference image
 compare_or_create(path, |path: &Path| {
     viewport.write_to_file(path, |cr| draw_cross(cr, [0.0, 0.0, 0.0, 1.0]))
-}).expect("image is created");
+}, 0.99).expect("image is created");
 
 assert!(path.exists());
 
 // Reference image exists -> compare
 compare_or_create(path, |path: &Path| {
     viewport.write_to_file(path, |cr| draw_cross(cr, [0.0, 0.0, 0.0, 1.0]))
-}).expect("comparison succeeded");
+}, 0.99).expect("comparison succeeded");
 
 // Draw a blue cross
 let err = compare_or_create(path, |path: &Path| {
     viewport.write_to_file(path, |cr| draw_cross(cr, [0.0, 0.0, 1.0, 1.0]))
-})
+}, 0.99)
 .unwrap_err();
 match err {
     cairo_viewport::Error::ImageCompFailed {
@@ -680,12 +699,13 @@ std::fs::remove_file(&path).unwrap();
 pub fn compare_or_create<F: FnOnce(&Path) -> Result<(), Error>, P: AsRef<Path>>(
     reference_image: P,
     draw_callback: F,
+    required_relative_similarity: f64,
 ) -> Result<(), Error> {
     let p = reference_image.as_ref();
 
     // Create the file anew, if necessary
     if p.exists() {
-        return compare_to_image(&p, draw_callback);
+        return compare_to_image(&p, draw_callback, required_relative_similarity);
     } else {
         // Check if the given path already points to a file. If not, try to create the file.
         let _ = if p.exists() {

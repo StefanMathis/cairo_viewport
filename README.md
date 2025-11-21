@@ -1,11 +1,11 @@
 cairo_viewport
 ==============
 
-[`Viewport`]: https://docs.rs/cairo_viewport/0.1.5/cairo_viewport/struct.Viewport.html
-[`Viewport::compare_to_image`]: https://docs.rs/cairo_viewport/0.1.5/cairo_viewport/struct.Viewport.html#method.compare_to_image
-[`Viewport::compare_or_create`]: https://docs.rs/cairo_viewport/0.1.5/cairo_viewport/struct.Viewport.html#method.compare_or_create
-[`compare_to_image`]: https://docs.rs/cairo_viewport/0.1.5/cairo_viewport/fn.compare_to_image.html
-[`compare_or_create`]: https://docs.rs/cairo_viewport/0.1.5/cairo_viewport/fn.compare_or_create.html
+[`Viewport`]: https://docs.rs/cairo_viewport/0.2.0/cairo_viewport/struct.Viewport.html
+[`Viewport::compare_to_image`]: https://docs.rs/cairo_viewport/0.2.0/cairo_viewport/struct.Viewport.html#method.compare_to_image
+[`Viewport::compare_or_create`]: https://docs.rs/cairo_viewport/0.2.0/cairo_viewport/struct.Viewport.html#method.compare_or_create
+[`compare_to_image`]: https://docs.rs/cairo_viewport/0.2.0/cairo_viewport/fn.compare_to_image.html
+[`compare_or_create`]: https://docs.rs/cairo_viewport/0.2.0/cairo_viewport/fn.compare_or_create.html
 [`BoundingBox`]: https://docs.rs/bounding_box/latest/bounding_box/struct.BoundingBox.html
 [`Context`]: https://gtk-rs.org/gtk-rs-core/stable/latest/docs/cairo/struct.Context.html
 
@@ -107,7 +107,7 @@ impl Circle {
 
 let c = Circle {center: [1000.0, 1000.0], radius: 2.0};
 let viewport = Viewport::from_bounding_box(&c.bounding_box(), SideLength::Long(500));
-viewport.compare_to_image("docs/circle.png", |cr: &cairo::Context| {c.draw(cr)}).expect("images are identical");
+viewport.compare_to_image("docs/circle.png", |cr: &cairo::Context| {c.draw(cr)}, 0.99).expect("images are identical");
 ```
 
 It is also possible to circumvent the usage of [`Viewport`] entirely by directly
@@ -119,4 +119,4 @@ creates the file if it doesn't.
 # Documentation
 
 The full API documentation is available at
-[https://docs.rs/cairo_viewport/0.1.5/cairo_viewport/](https://docs.rs/cairo_viewport/0.1.5/cairo_viewport/).
+[https://docs.rs/cairo_viewport/0.2.0/cairo_viewport/](https://docs.rs/cairo_viewport/0.2.0/cairo_viewport/).

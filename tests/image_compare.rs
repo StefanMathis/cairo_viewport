@@ -35,15 +35,19 @@ fn test_compare_image() {
         .unwrap();
 
     // Compare to a second black cross
-    compare_to_image(path, |path: &Path| {
-        viewport.write_to_file(path, |cr| draw_cross(cr, [0.0, 0.0, 0.0, 1.0]))
-    })
+    compare_to_image(
+        path,
+        |path: &Path| viewport.write_to_file(path, |cr| draw_cross(cr, [0.0, 0.0, 0.0, 1.0])),
+        0.99,
+    )
     .expect("images should be identical");
 
     // Draw a blue cross
-    let err = compare_to_image(path, |path: &Path| {
-        viewport.write_to_file(path, |cr| draw_cross(cr, [0.0, 0.0, 1.0, 1.0]))
-    })
+    let err = compare_to_image(
+        path,
+        |path: &Path| viewport.write_to_file(path, |cr| draw_cross(cr, [0.0, 0.0, 1.0, 1.0])),
+        0.99,
+    )
     .unwrap_err();
     match err {
         cairo_viewport::Error::ImageCompFailed {
