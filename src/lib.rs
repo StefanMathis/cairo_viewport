@@ -1,4 +1,5 @@
-#![doc = include_str!("../README.md")]
+#![cfg_attr(docsrs, doc = include_str!("../README.md"))]
+#![cfg_attr(not(docsrs), doc = include_str!("../README_LOCAL.md"))]
 #![deny(missing_docs)]
 
 use bounding_box::BoundingBox;
@@ -230,10 +231,15 @@ impl Viewport {
     let path = std::path::Path::new("docs/rectangle_with_origin.svg");
     assert!(viewport.write_to_file(path, draw_callback).is_ok());
     ```
-    File "docs/rectangle_with_origin.svg":
-
-    ![](https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/rectangle_with_origin.svg "Rectangle with origin marker")
     */
+    #[cfg_attr(
+        docsrs,
+        doc = "![](https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/rectangle_with_origin.svg \"Rectangle with origin marker\")"
+    )]
+    #[cfg_attr(
+        not(docsrs),
+        doc = "![>> Example image missing, copy folder docs from crate root to doc root folder (where index.html is) to display the image <<](docs/rectangle_with_origin.svg)"
+    )]
     pub fn write_to_file<F: FnOnce(&cairo::Context) -> Result<(), cairo::Error>, P: AsRef<Path>>(
         &self,
         path: P,

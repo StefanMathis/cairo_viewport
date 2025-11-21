@@ -62,7 +62,7 @@ viewport.write_to_file("docs/circle.svg", |cr: &cairo::Context| {c.draw(cr)}).ex
 ```
 File "docs/circle.svg":
 
-![](https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/circle.svg "Circle created by code")
+![](docs/circle.svg "Circle created by code")
 
 # Compare images
 
