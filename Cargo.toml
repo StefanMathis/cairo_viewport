@@ -6,13 +6,6 @@ description = "A viewport for cairo-rs to simplify creating images"
 readme = "README.md"
 license  = "MIT OR Apache-2.0"
 repository = "https://github.com/StefanMathis/cairo_viewport.git"
-include = [
-    "src/**",
-    "Cargo.toml",
-    "README.md",
-    "docs/**",
-    "tests/**",
-]
 
 [dependencies]
 cairo-rs = {version = "0.21", features = ["png", "pdf", "svg", "ps"]}
