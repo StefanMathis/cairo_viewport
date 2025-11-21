@@ -1,5 +1,5 @@
 #![cfg_attr(docsrs, doc = include_str!("../README.md"))]
-#![cfg_attr(not(docsrs), doc = include_str!("../README_LOCAL.md"))]
+#![cfg_attr(not(docsrs), doc = include_str!("../README_local.md"))]
 #![deny(missing_docs)]
 
 use bounding_box::BoundingBox;
