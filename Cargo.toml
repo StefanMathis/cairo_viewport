@@ -1,6 +1,6 @@
 [package]
 name = "cairo_viewport"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 description = "A viewport for cairo-rs to simplify creating images"
 readme = "README.md"
@@ -9,7 +9,7 @@ repository = "https://github.com/StefanMathis/cairo_viewport.git"
 
 [dependencies]
 cairo-rs = {version = "0.21", features = ["png", "pdf", "svg", "ps"]}
-bounding_box = { version = "0.2.0"}
+bounding_box = { version = "0.3.0"}
 rand = { version = "0.8.5", optional = true}
 image = { version = "0.25", optional = true}
 image-compare = { version = "0.4", optional = true}
