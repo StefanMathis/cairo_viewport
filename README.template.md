@@ -11,10 +11,15 @@ cairo_viewport
 
 This crate adds the [`Viewport`] abstraction on top of the excellent
 [cairo-rs](https://crates.io/crates/cairo-rs) crate, which itself is a Rust
-wrapper around the [cairo](https://www.cairographics.org/) library. A
-[`Viewport`] can be created from a [`BoundingBox`] and automatically configures
-a cairo [`Context`] so it fits the underlying bounding box. This is useful to
-simplify creating images of bounded objects, as shown below:
+wrapper around the [cairo](https://www.cairographics.org/) library.
+
+> **Feedback welcome!**  
+> Found a bug, missing docs, or have a feature request?  
+> Please open an issue on GitHub.
+
+A [`Viewport`] can be created from a [`BoundingBox`] and automatically
+configures a cairo [`Context`] so it fits the underlying bounding box. This is
+useful to simplify creating images of bounded objects, as shown below:
 
 ```rust
 use cairo_viewport::{SideLength, Viewport};
