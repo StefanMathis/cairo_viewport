@@ -1,11 +1,11 @@
 cairo_viewport
 ==============
 
-[`Viewport`]: https://docs.rs/cairo_viewport/0.2.3/cairo_viewport/struct.Viewport.html
-[`Viewport::compare_to_image`]: https://docs.rs/cairo_viewport/0.2.3/cairo_viewport/struct.Viewport.html#method.compare_to_image
-[`Viewport::compare_or_create`]: https://docs.rs/cairo_viewport/0.2.3/cairo_viewport/struct.Viewport.html#method.compare_or_create
-[`compare_to_image`]: https://docs.rs/cairo_viewport/0.2.3/cairo_viewport/fn.compare_to_image.html
-[`compare_or_create`]: https://docs.rs/cairo_viewport/0.2.3/cairo_viewport/fn.compare_or_create.html
+[`Viewport`]: https://docs.rs/cairo_viewport/0.2.4/cairo_viewport/struct.Viewport.html
+[`Viewport::compare_to_image`]: https://docs.rs/cairo_viewport/0.2.4/cairo_viewport/struct.Viewport.html#method.compare_to_image
+[`Viewport::compare_or_create`]: https://docs.rs/cairo_viewport/0.2.4/cairo_viewport/struct.Viewport.html#method.compare_or_create
+[`compare_to_image`]: https://docs.rs/cairo_viewport/0.2.4/cairo_viewport/fn.compare_to_image.html
+[`compare_or_create`]: https://docs.rs/cairo_viewport/0.2.4/cairo_viewport/fn.compare_or_create.html
 [`BoundingBox`]: https://docs.rs/bounding_box/latest/bounding_box/struct.BoundingBox.html
 [`Context`]: https://gtk-rs.org/gtk-rs-core/stable/latest/docs/cairo/struct.Context.html
 
@@ -67,7 +67,7 @@ viewport.write_to_file("docs/img/circle.svg", |cr: &cairo::Context| {c.draw(cr)}
 ```
 File "docs/img/circle.svg":
 
-![](https://raw.githubusercontent.com/StefanMathis/akima_spline/refs/heads/main/docs/img/circle.svg "Circle from code")
+![](https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/img/circle.svg "Circle from code")
 
 # Compare images
 

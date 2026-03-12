@@ -18,7 +18,7 @@ fn main() {
     readme.push_str(
         &fs::read_to_string("docs/readme_parts/circle.svg.md").expect("Failed to read template"),
     );
-    readme.push_str("\n\n![](https://raw.githubusercontent.com/StefanMathis/akima_spline/refs/heads/main/docs/img/circle.svg \"Circle from code\")\n\n");
+    readme.push_str("\n\n![](https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/img/circle.svg \"Circle from code\")\n\n");
 
     readme.push_str(
         &fs::read_to_string("docs/readme_parts/end.md").expect("Failed to read template"),
