@@ -1,5 +1,27 @@
-#![cfg_attr(docsrs, doc = include_str!("../README.md"))]
-#![cfg_attr(not(docsrs), doc = include_str!("../README_local.md"))]
+/*!
+[`Viewport`]: crate::Viewport
+[`Viewport::compare_to_image`]: crate::Viewport::compare_to_image
+[`Viewport::compare_or_create`]: crate::Viewport::compare_or_create
+[`compare_to_image`]: crate::compare_to_image
+[`compare_or_create`]: crate::compare_or_create
+[`BoundingBox`]: bounding_box::BoundingBox
+[`Context`]: cairo::Context
+ */
+#![doc = include_str!("../docs/readme_parts/circle.svg.md")]
+#![doc = r#"
+
+![Circle created by code][circle]
+
+"#]
+#![cfg_attr(feature = "doc-images",
+cfg_attr(all(),
+doc = ::embed_doc_image::embed_image!("circle", "docs/img/circle.svg"),
+))]
+#![cfg_attr(
+    not(feature = "doc-images"),
+    doc = "**Doc images not enabled**. Compile docs with `cargo doc --features 'doc-images'` and Rust version >= 1.54."
+)]
+#![doc = include_str!("../docs/readme_parts/end.md")]
 #![deny(missing_docs)]
 
 use bounding_box::BoundingBox;
@@ -228,27 +250,36 @@ impl Viewport {
         return Ok(());
     };
 
-    let path = std::path::Path::new("docs/rectangle_with_origin.svg");
+    let path = std::path::Path::new("docs/img/rectangle_with_origin.svg");
     assert!(viewport.write_to_file(path, draw_callback).is_ok());
     ```
     */
+    #[doc = ""]
     #[cfg_attr(
-        docsrs,
-        doc = "![](https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/rectangle_with_origin.svg \"Rectangle with origin marker\")"
+        feature = "doc-images",
+        doc = "![Rectangle with origin][rectangle_with_origin]"
     )]
     #[cfg_attr(
-        not(docsrs),
-        doc = "![>> Example image missing, copy folder docs from crate root to doc root folder (where index.html is) to display the image <<](docs/rectangle_with_origin.svg)"
+        feature = "doc-images",
+        embed_doc_image::embed_doc_image(
+            "rectangle_with_origin",
+            "docs/img/rectangle_with_origin.svg"
+        )
     )]
-    pub fn write_to_file<F: FnOnce(&cairo::Context) -> Result<(), cairo::Error>, P: AsRef<Path>>(
-        &self,
-        path: P,
-        draw_callback: F,
-    ) -> Result<(), Error> {
+    #[cfg_attr(
+        not(feature = "doc-images"),
+        doc = "**Doc images not enabled**. Compile docs with `cargo doc --features 'doc-images'` and Rust version >= 1.54."
+    )]
+    pub fn write_to_file<F, P>(&self, path: P, draw_callback: F) -> Result<(), Error>
+    where
+        F: for<'a> FnOnce(&'a cairo::Context) -> Result<(), cairo::Error>,
+        P: AsRef<Path>,
+    {
         let path = path.as_ref();
         let extension = try_get_file_ext_for_cairo(path)?;
 
-        // Check if the given path already points to a file. If not, try to create the file.
+        // Check if the given path already points to a file. If not, try to create the
+        // file.
         let mut file = if path.exists() {
             std::fs::OpenOptions::new().write(true).open(path)?
         } else {
@@ -364,15 +395,16 @@ impl Viewport {
     ```
     */
     #[cfg(feature = "image-compare")]
-    pub fn compare_to_image<
-        F: FnOnce(&cairo::Context) -> Result<(), cairo::Error>,
-        P: AsRef<Path>,
-    >(
+    pub fn compare_to_image<F, P>(
         &self,
         image: P,
         draw_callback: F,
         required_relative_similarity: f64,
-    ) -> Result<(), Error> {
+    ) -> Result<(), Error>
+    where
+        F: for<'a> FnOnce(&'a cairo::Context) -> Result<(), cairo::Error>,
+        P: AsRef<Path>,
+    {
         return compare_to_image(
             image,
             |path: &Path| self.write_to_file(path, draw_callback),
@@ -446,15 +478,16 @@ impl Viewport {
     ```
     */
     #[cfg(feature = "image-compare")]
-    pub fn compare_or_create<
-        F: FnOnce(&cairo::Context) -> Result<(), cairo::Error>,
-        P: AsRef<Path>,
-    >(
+    pub fn compare_or_create<F, P>(
         &self,
         image: P,
         draw_callback: F,
         required_relative_similarity: f64,
-    ) -> Result<(), Error> {
+    ) -> Result<(), Error>
+    where
+        F: for<'a> FnOnce(&'a cairo::Context) -> Result<(), cairo::Error>,
+        P: AsRef<Path>,
+    {
         return compare_or_create(
             image,
             |path: &Path| self.write_to_file(path, draw_callback),
@@ -554,17 +587,24 @@ match err {
 ```
 */
 #[cfg(feature = "image-compare")]
-pub fn compare_to_image<F: FnOnce(&Path) -> Result<(), Error>, P: AsRef<Path>>(
+pub fn compare_to_image<F, P>(
     reference_image: P,
     draw_callback: F,
     required_relative_similarity: f64,
-) -> Result<(), Error> {
-    fn compare_to_image_inner<F: FnOnce(&Path) -> Result<(), Error>>(
-        p: &std::path::Path,
-        tmp_image: &std::path::Path,
+) -> Result<(), Error>
+where
+    F: for<'a> FnOnce(&'a Path) -> Result<(), Error>,
+    P: AsRef<Path>,
+{
+    fn compare_to_image_inner<F>(
+        p: &Path,
+        tmp_image: &Path,
         draw_callback: F,
         required_relative_similarity: f64,
-    ) -> Result<(), Error> {
+    ) -> Result<(), Error>
+    where
+        F: for<'a> FnOnce(&'a Path) -> Result<(), Error>,
+    {
         // Populate the file
         draw_callback(&tmp_image)?;
 
@@ -696,18 +736,23 @@ std::fs::remove_file(&path).unwrap();
 ```
 */
 #[cfg(feature = "image-compare")]
-pub fn compare_or_create<F: FnOnce(&Path) -> Result<(), Error>, P: AsRef<Path>>(
+pub fn compare_or_create<F, P>(
     reference_image: P,
     draw_callback: F,
     required_relative_similarity: f64,
-) -> Result<(), Error> {
+) -> Result<(), Error>
+where
+    F: for<'a> FnOnce(&'a Path) -> Result<(), Error>,
+    P: AsRef<Path>,
+{
     let p = reference_image.as_ref();
 
     // Create the file anew, if necessary
     if p.exists() {
         return compare_to_image(&p, draw_callback, required_relative_similarity);
     } else {
-        // Check if the given path already points to a file. If not, try to create the file.
+        // Check if the given path already points to a file. If not, try to create the
+        // file.
         let _ = if p.exists() {
             // https://users.rust-lang.org/t/os-error-5-when-writing-to-file-on-windows-10/49307/2
             std::fs::OpenOptions::new().write(true).open(p)?
@@ -740,7 +785,8 @@ fn create_random_filename(name_length: usize) -> String {
 fn try_get_file_ext_for_cairo(path: &Path) -> Result<&str, Error> {
     match path.extension().and_then(OsStr::to_str) {
         Some(ext) => {
-            // Check if the provided file extension matches one of the available file extension types
+            // Check if the provided file extension matches one of the available file
+            // extension types
             if !CAIRO_FILE_EXTENSIONS.contains(&ext) {
                 let mut msg = format!(
                     "The given file extension \"{}\" is not recognized. Available file extensions are: ",
@@ -866,8 +912,9 @@ impl SideLength {
             }
         }
 
-        // If the length or width of the bounding box is zero, the width or height of the image configuration is zero as well.
-        // Therefore, zero values are set to 1.
+        // If the length or width of the bounding box is zero, the width or height of
+        // the image configuration is zero as well. Therefore, zero values are
+        // set to 1.
         if width == 0 {
             width = 1;
         }

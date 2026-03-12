@@ -1,27 +1,32 @@
+use std::fs;
+
 fn main() {
-    // If building for docs.rs, DO NOT create the README files from the template
-    if let Ok(env) = std::env::var("DOCS_RS") {
-        if &env == "1" {
-            return ();
-        }
+    // Skip README generation on docs.rs
+    if std::env::var("DOCS_RS").as_deref() == Ok("1") {
+        return;
     }
 
-    let mut readme = std::fs::read_to_string("README.template.md").unwrap();
-    readme = readme.replace(
+    /*
+    Compose README.md from the building blocks in docs/readme_parts,
+    interleaving image links in between. Finally, all {{VERSION}} placeholders
+    are replaced by the actual version read from Cargo.toml.
+     */
+
+    let mut readme =
+        fs::read_to_string("docs/readme_parts/links.md").expect("Failed to read template");
+    readme.push('\n');
+    readme.push_str(
+        &fs::read_to_string("docs/readme_parts/circle.svg.md").expect("Failed to read template"),
+    );
+    readme.push_str("\n\n![](https://raw.githubusercontent.com/StefanMathis/akima_spline/refs/heads/main/docs/img/circle.svg \"Circle from code\")\n\n");
+
+    readme.push_str(
+        &fs::read_to_string("docs/readme_parts/end.md").expect("Failed to read template"),
+    );
+
+    let readme = readme.replace(
         "{{VERSION}}",
-        std::env::var("CARGO_PKG_VERSION")
-            .expect("version is available in build.rs")
-            .as_str(),
+        &std::env::var("CARGO_PKG_VERSION").expect("version is available in build.rs"),
     );
-
-    // Generate README_local.md using local images
-    let local = readme.replace("{{circle.svg}}", "docs/circle.svg");
-    std::fs::write("README_local.md", local).unwrap();
-
-    // Generate README,md using online hosted images
-    let docsrs = readme.replace(
-        "{{circle.svg}}",
-        "https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/circle.svg",
-    );
-    std::fs::write("README.md", docsrs).unwrap();
+    let _ = fs::write("README.md", readme);
 }
