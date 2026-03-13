@@ -199,61 +199,60 @@ impl Viewport {
         };
     }
 
-    /**
-    Draws an image with the given `draw_callback` and saves it into the file
-    specified via `path`.
-
-    The file type (.pdf, .png, .ps or .svg, see [`CAIRO_FILE_EXTENSIONS`]) is
-    derived from the file extension specified in `path`. Hence, specifying a
-    path without any of these four file extensions results in an error.
-
-    # Examples
-
-    ```
-    use cairo_viewport::{Viewport, SideLength};
-    use bounding_box::BoundingBox;
-
-    let bb = BoundingBox::new(-1.5, 6.5, -3.5, 3.5);
-    let viewport = Viewport::from_bounding_box(&bb, SideLength::Long(500));
-
-    let draw_callback = |cr: &cairo::Context| {
-
-        // Set the background to white
-        cr.set_source_rgb(1.0, 1.0, 1.0);
-        cr.paint()?;
-
-        cr.set_line_cap(cairo::LineCap::Square);
-
-        // Draw a rectangle
-        cr.move_to(-1.0, -3.0);
-        cr.line_to(6.0, -3.0);
-        cr.line_to(6.0, 3.0);
-        cr.line_to(-1.0, 3.0);
-        cr.close_path();
-        cr.set_line_width(0.1);
-        cr.set_source_rgba(0.0, 0.0, 1.0, 1.0); // Blue line
-        cr.stroke()?;
-
-        // Draw the origin as a black "L" shape
-        cr.move_to(0.0, 0.0);
-        cr.line_to(0.5, 0.0);
-        cr.set_line_width(0.2);
-        cr.set_source_rgba(0.0, 0.0, 0.0, 1.0); // Black line
-        cr.stroke()?;
-
-        cr.move_to(0.0, 0.0);
-        cr.line_to(0.0, 0.5);
-        cr.set_line_width(0.2);
-        cr.set_source_rgba(0.0, 0.0, 0.0, 1.0); // Black line
-        cr.stroke()?;
-
-        return Ok(());
-    };
-
-    let path = std::path::Path::new("docs/img/rectangle_with_origin.svg");
-    assert!(viewport.write_to_file(path, draw_callback).is_ok());
-    ```
-    */
+    /// Draws an image with the given `draw_callback` and saves it into the file
+    /// specified via `path`.
+    ///
+    /// The file type (.pdf, .png, .ps or .svg, see [`CAIRO_FILE_EXTENSIONS`])
+    /// is derived from the file extension specified in `path`. Hence,
+    /// specifying a path without any of these four file extensions results
+    /// in an error.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use cairo_viewport::{Viewport, SideLength};
+    /// use bounding_box::BoundingBox;
+    ///
+    /// let bb = BoundingBox::new(-1.5, 6.5, -3.5, 3.5);
+    /// let viewport = Viewport::from_bounding_box(&bb, SideLength::Long(500));
+    ///
+    /// let draw_callback = |cr: &cairo::Context| {
+    ///
+    ///     // Set the background to white
+    ///     cr.set_source_rgb(1.0, 1.0, 1.0);
+    ///     cr.paint()?;
+    ///
+    ///     cr.set_line_cap(cairo::LineCap::Square);
+    ///
+    ///     // Draw a rectangle
+    ///     cr.move_to(-1.0, -3.0);
+    ///     cr.line_to(6.0, -3.0);
+    ///     cr.line_to(6.0, 3.0);
+    ///     cr.line_to(-1.0, 3.0);
+    ///     cr.close_path();
+    ///     cr.set_line_width(0.1);
+    ///     cr.set_source_rgba(0.0, 0.0, 1.0, 1.0); // Blue line
+    ///    cr.stroke()?;
+    ///
+    ///     // Draw the origin as a black "L" shape
+    ///     cr.move_to(0.0, 0.0);
+    ///     cr.line_to(0.5, 0.0);
+    ///     cr.set_line_width(0.2);
+    ///     cr.set_source_rgba(0.0, 0.0, 0.0, 1.0); // Black line
+    ///     cr.stroke()?;
+    ///
+    ///     cr.move_to(0.0, 0.0);
+    ///     cr.line_to(0.0, 0.5);
+    ///     cr.set_line_width(0.2);
+    ///     cr.set_source_rgba(0.0, 0.0, 0.0, 1.0); // Black line
+    ///     cr.stroke()?;
+    ///
+    ///     return Ok(());
+    /// };
+    ///
+    /// let path = std::path::Path::new("docs/img/rectangle_with_origin.svg");
+    /// assert!(viewport.write_to_file(path, draw_callback).is_ok());
+    /// ```
     #[doc = ""]
     #[cfg_attr(
         feature = "doc-images",
