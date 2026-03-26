@@ -1,7 +1,3 @@
-This crate adds the [`Viewport`] abstraction on top of the excellent
-[cairo-rs](https://crates.io/crates/cairo-rs) crate, which itself is a Rust
-wrapper around the [cairo](https://www.cairographics.org/) library.
-
 > **Feedback welcome!**  
 > Found a bug, missing docs, or have a feature request?  
 > Please open an issue on GitHub.

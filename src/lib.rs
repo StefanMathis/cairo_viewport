@@ -6,6 +6,11 @@
 [`compare_or_create`]: crate::compare_or_create
 [`BoundingBox`]: bounding_box::BoundingBox
 [`Context`]: cairo::Context
+
+This crate adds the [`Viewport`] abstraction on top of the excellent
+[cairo-rs](https://crates.io/crates/cairo-rs) crate, which itself is a Rust
+wrapper around the [cairo](https://www.cairographics.org/) library.
+
  */
 #![doc = include_str!("../docs/readme_parts/circle.svg.md")]
 #![doc = r#"

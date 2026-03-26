@@ -9,9 +9,13 @@ cairo_viewport
 [`BoundingBox`]: https://docs.rs/bounding_box/latest/bounding_box/struct.BoundingBox.html
 [`Context`]: https://gtk-rs.org/gtk-rs-core/stable/latest/docs/cairo/struct.Context.html
 
+[![Documentation](https://docs.rs/cairo_viewport/badge.svg)](https://docs.rs/cairo_viewport)
+
 This crate adds the [`Viewport`] abstraction on top of the excellent
 [cairo-rs](https://crates.io/crates/cairo-rs) crate, which itself is a Rust
 wrapper around the [cairo](https://www.cairographics.org/) library.
+
+The full API documentation is available at https://docs.rs/cairo_viewport/0.2.5/cairo_viewport.
 
 > **Feedback welcome!**  
 > Found a bug, missing docs, or have a feature request?  
