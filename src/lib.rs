@@ -12,21 +12,15 @@ This crate adds the [`Viewport`] abstraction on top of the excellent
 wrapper around the [cairo](https://www.cairographics.org/) library.
 
  */
-#![doc = include_str!("../docs/readme_parts/circle.svg.md")]
-#![doc = r#"
-
-![Circle created by code][circle]
-
-"#]
 #![cfg_attr(feature = "doc-images",
 cfg_attr(all(),
-doc = ::embed_doc_image::embed_image!("circle", "docs/img/circle.svg"),
+doc = ::embed_doc_image::embed_image!("circle.svg", "docs/img/circle.svg"),
 ))]
 #![cfg_attr(
     not(feature = "doc-images"),
     doc = "**Doc images not enabled**. Compile docs with `cargo doc --features 'doc-images'` and Rust version >= 1.54."
 )]
-#![doc = include_str!("../docs/readme_parts/end.md")]
+#![doc = include_str!("../docs/main.md")]
 #![deny(missing_docs)]
 
 use bounding_box::BoundingBox;
