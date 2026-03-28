@@ -1,6 +1,10 @@
 cairo_viewport
 ==============
 
+<!-- This file has ben generated with build.rs by concatenating docs/links.md,
+docs/main.md and (if available docs/end.md). Do not modify this file, instead
+modify the components. -->
+
 [`Viewport`]: https://docs.rs/cairo_viewport/0.2.5/cairo_viewport/struct.Viewport.html
 [`Viewport::compare_to_image`]: https://docs.rs/cairo_viewport/0.2.5/cairo_viewport/struct.Viewport.html#method.compare_to_image
 [`Viewport::compare_or_create`]: https://docs.rs/cairo_viewport/0.2.5/cairo_viewport/struct.Viewport.html#method.compare_or_create
