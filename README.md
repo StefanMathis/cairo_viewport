@@ -5,11 +5,11 @@ cairo_viewport
 docs/main.md and (if available docs/end.md). Do not modify this file, instead
 modify the components. -->
 
-[`Viewport`]: https://docs.rs/cairo_viewport/0.2.5/cairo_viewport/struct.Viewport.html
-[`Viewport::compare_to_image`]: https://docs.rs/cairo_viewport/0.2.5/cairo_viewport/struct.Viewport.html#method.compare_to_image
-[`Viewport::compare_or_create`]: https://docs.rs/cairo_viewport/0.2.5/cairo_viewport/struct.Viewport.html#method.compare_or_create
-[`compare_to_image`]: https://docs.rs/cairo_viewport/0.2.5/cairo_viewport/fn.compare_to_image.html
-[`compare_or_create`]: https://docs.rs/cairo_viewport/0.2.5/cairo_viewport/fn.compare_or_create.html
+[`Viewport`]: https://docs.rs/cairo_viewport/0.2.6/cairo_viewport/struct.Viewport.html
+[`Viewport::compare_to_image`]: https://docs.rs/cairo_viewport/0.2.6/cairo_viewport/struct.Viewport.html#method.compare_to_image
+[`Viewport::compare_or_create`]: https://docs.rs/cairo_viewport/0.2.6/cairo_viewport/struct.Viewport.html#method.compare_or_create
+[`compare_to_image`]: https://docs.rs/cairo_viewport/0.2.6/cairo_viewport/fn.compare_to_image.html
+[`compare_or_create`]: https://docs.rs/cairo_viewport/0.2.6/cairo_viewport/fn.compare_or_create.html
 [`BoundingBox`]: https://docs.rs/bounding_box/latest/bounding_box/struct.BoundingBox.html
 [`Context`]: https://gtk-rs.org/gtk-rs-core/stable/latest/docs/cairo/struct.Context.html
 [circle.svg]: https://raw.githubusercontent.com/StefanMathis/cairo_viewport/refs/heads/main/docs/img/circle.svg
@@ -20,7 +20,7 @@ This crate adds the [`Viewport`] abstraction on top of the excellent
 [cairo-rs](https://crates.io/crates/cairo-rs) crate, which itself is a Rust
 wrapper around the [cairo](https://www.cairographics.org/) library.
 
-The full API documentation is available at https://docs.rs/cairo_viewport/0.2.5/cairo_viewport.
+The full API documentation is available at https://docs.rs/cairo_viewport/0.2.6/cairo_viewport.
 
 > **Feedback welcome!**  
 > Found a bug, missing docs, or have a feature request?  
